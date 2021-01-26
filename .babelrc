@@ -1,0 +1,32 @@
+{
+	"presets": [
+        // preset-env 根据用户定义的属性，来判断需要将javascript如何进行转义
+        //      这里定义了targets，即目标环境为IE5，preset-env会根据IE5支持的
+        //      javascript api来告诉babel需要做哪些转义
+        // 这里，会对大部分es6新增语法进行转移，然而对于新增API，则不会进行识别
+        //     例如 Array.prototypes.includes
+        // 为了处理这种情况，需要添加另外两个库来对这些api进行额外的转义
+        //     core-js  and regenator-runtime
+		["@babel/preset-env", {
+            "debug":true,
+            "corejs": 3,
+            // useBuiltIns 有三种值
+            //     usage: 根据需求自动转义
+            //     entry: 对添加了 import core-js的文件进行转义
+            //     false：不转义
+            "useBuiltIns": "usage",
+            // 指定输出环境
+            "targets": {
+                "ie": "5"
+            // targets 支持多种写法
+            //   可以通过上述方法指定build
+            //   也可以写babel自定义的query来确保通用性
+            //     例如： "browserslist": "> 0.25%, not dead"
+            }
+		}]
+    ],
+    // https://babeljs.io/docs/en/plugins
+    "plugins": [
+        ["@babel/plugin-transform-arrow-functions", { "spec": true }]
+    ]
+}
